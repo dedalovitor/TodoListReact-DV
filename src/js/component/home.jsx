@@ -1,53 +1,47 @@
 import React, { useEffect, useState } from "react";
 
-//add into array --> concat
-//delete from an array --> filter
-//update --> map
-
-//create your first component
 const Home = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [todos, setTodos] = useState([]);
+
+
+	const inputData = () => {
+		if(!todos.includes(inputValue)){
+			setTodos(todos.concat(inputValue));
+			setInputValue("");
+		}else{
+			alert("Please change your todo. That todo is already saved!")
+		}
+		
+	};
+
 	return (
 		<div className="container">
-			<h1>My Todos</h1>
-			<ul>
-				<li><input
-					type="text"
-					onChange={(e)=> setInputValue(e.target.value)}
-					value= {inputValue}
-					onKeyUp={(e) => {
-						if (e.key== "Enter" && e.target.value.trim() != ""){
-							setTodos(todos.concat([e.target.value]));
-							setInputValue("");
-						} 
-						
-					}}
-					placeholder="What do you need to do?">
+			<div className="row margin-auto">
+				<div className="column">
+					<h1>Todos List</h1>
+					<div className="col-6 m-auto border border-2 border-dark-subtle">
+						<input type="text" onChange={(e) => { setInputValue(e.target.value) }} onKeyUp={(e) => e.key == "Enter" && e.target.value.trim() !== "" ? inputData() : null} value={inputValue} placeholder={todos.length == 0 ? "Add your first Todo!" : "Add more todos!"}></input>
 
-				</input>
-				</li>
-				
-				{todos.map((item, index) =>
-				<li>{item}{" "}
-				<i 
-				class="fa-solid fa-trash-can" 
-				onClick={() => 
-				setTodos(
-					todos.filter(
-						(t, currentIndex) =>
-						 index != currentIndex
-						 )
-						 )
-						 }></i>
-						 </li>
-						 )}
-				
-				</ul>
-
-			<div>{todos.length > 0 ? `${todos.length} todos` : 'No todos' }</div>
+					</div>
+					<div className="col-6 m-auto">
+					<ul>
+						{todos.map((item, index) =>
+						<div className="d-flex">
+								<li className="col-10">{index + 1}. {item}</li>
+								<button className="btn btn-danger col-2" onClick={()=> setTodos(todos.filter((t, currentIndex) => currentIndex != index))
+								} >x</button>
+								</div>
+						)}
+					</ul>
+					{console.log(todos)}
+					<p>{ todos.length == 0? "nothing to do" : todos.length + " to be done" }</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
+
 };
 
 export default Home;
