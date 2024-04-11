@@ -6,13 +6,10 @@ const Home = () => {
 
 
 	const inputData = () => {
-		if(!todos.includes(inputValue)){
-			setTodos(todos.concat(inputValue));
-			setInputValue("");
-		}else{
-			alert("Please change your todo. That todo is already saved!")
-		}
-		
+		 !todos.includes(inputValue) ?
+			(setTodos(todos.concat(inputValue)) ,
+			setInputValue("")) : alert("Please change your todo. That todo is already saved!")
+	
 	};
 
 	return (
