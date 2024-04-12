@@ -24,7 +24,7 @@ const Home = () => {
 					<div className="col-6 m-auto">
 					<ul>
 						{todos.map((item, index) =>
-						<div className="d-flex">
+						<div className="d-flex mb-1">
 								<li className="col-10">{index + 1}. {item}</li>
 								<button className="btn btn-danger col-2" onClick={()=> setTodos(todos.filter((t, currentIndex) => currentIndex != index))
 								} >x</button>
